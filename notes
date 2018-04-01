@@ -1,0 +1,39 @@
+Figure Name: <input type="text" id="figure_name" name="figure_name">
+Landmark: <input type="text" id="new_landmark" name="figure[landmark_ids][]">
+Title: <input type="text" id="new_title" name="figure[title_ids][]">
+
+<h2>Existing Landmarks</h2>
+<br>
+<%Landmark.all.each do |landmark|%>
+  <p><input id="<%=landmark_#{landmark.id}%>" type="checkbox" name="landmark_id" value="<%=landmark.id%>"><%="#{landmark.name}"%></p>
+<%end%>
+
+<br>
+
+<h2>Existing Titles</h2>
+<br>
+<%Title.all.each do |title|%>
+  <p><input id="<%=landmark_#{landmark.id}%>" type="checkbox" name="title_id" value="<%=title.id%>"><%="#{title.name}"%></p>
+<%end%>
+
+
+####
+
+Original post /figures code
+
+@figure = Figure.create(name: params[:figure][:name])
+
+if params[:landmark][:name] != "" # if new Landmark name entered
+  @figure.landmarks << Landmark.create(name: params[:landmark][:name])
+elsif !@figure.landmarks.include?(Landmark.find_by_id(params[:figure][:landmark_ids]))
+  @figure.landmarks << Landmark.find_by_id(params[:figure][:landmark_ids])
+end
+# binding.pry
+
+if params[:title][:name] != "" # if new Title name entered
+  @figure.titles << Title.create(name: params[:title][:name])
+end
+
+if !@figure.titles.include?(Title.find_by_id(params[:figure][:title_ids]))
+  @figure.titles << Title.find_by_id(params[:figure][:title_ids])
+end
