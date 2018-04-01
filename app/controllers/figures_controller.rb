@@ -23,6 +23,7 @@ class FiguresController < ApplicationController
       @title_ids.each do |id|
         title = Title.find_by_id(id)
         @figure.titles << title
+        @figure.titles.uniq
       end
     end
 
@@ -34,6 +35,7 @@ class FiguresController < ApplicationController
       @landmark_ids.each do |id|
         landmark = Landmark.find_by_id(id)
         @figure.landmarks << landmark
+        @figure.landmarks.uniq
       end
     end
 
